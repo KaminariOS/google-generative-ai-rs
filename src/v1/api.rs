@@ -18,6 +18,12 @@ use crate::v1::gemini::Model;
 use super::gemini::response::{GeminiErrorResponse, StreamedGeminiResponse, TokenCount};
 use super::gemini::{ModelInformation, ModelInformationList, ResponseType};
 
+impl Client {
+    pub(crate) async fn get_auth_token_option(&self) -> Result<Option<String>, GoogleAPIError> {
+        Ok(None)
+    }
+}
+
 #[cfg(feature = "beta")]
 const PUBLIC_API_URL_BASE: &str = "https://generativelanguage.googleapis.com/v1beta";
 
