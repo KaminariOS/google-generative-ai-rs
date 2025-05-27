@@ -91,6 +91,9 @@ pub enum Model {
     Gemini2_0Flash,
     #[cfg(feature = "beta")]
     #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
+    Gemini2_5Flash,
+    #[cfg(feature = "beta")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
     Custom(String),
     // TODO: Embedding004
 }
@@ -112,6 +115,10 @@ impl fmt::Display for Model {
             #[cfg(feature = "beta")]
             #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
             Model::Gemini2_0Flash => write!(f, "gemini-2.0-flash"),
+
+            #[cfg(feature = "beta")]
+            #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
+            Model::Gemini2_5Flash => write!(f, "gemini-2.5-flash-preview-05-20"),
 
             #[cfg(feature = "beta")]
             #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
