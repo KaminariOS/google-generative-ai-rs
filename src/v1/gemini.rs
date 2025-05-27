@@ -89,9 +89,12 @@ pub enum Model {
     #[cfg(feature = "beta")]
     #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
     Gemini2_0Flash,
-    #[cfg(feature = "beta")]
-    #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
+    #[cfg(feature = "gemini_2_5")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "gemini_2_5")))]
     Gemini2_5Flash,
+    #[cfg(feature = "gemini_2_5")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "gemini_2_5")))]
+    Gemini2_5Pro,
     #[cfg(feature = "beta")]
     #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
     Custom(String),
@@ -116,9 +119,13 @@ impl fmt::Display for Model {
             #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
             Model::Gemini2_0Flash => write!(f, "gemini-2.0-flash"),
 
-            #[cfg(feature = "beta")]
+            #[cfg(feature = "gemini_2_5")]
             #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
             Model::Gemini2_5Flash => write!(f, "gemini-2.5-flash-preview-05-20"),
+
+            #[cfg(feature = "gemini_2_5")]
+            #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
+            Model::Gemini2_5Pro => write!(f, "gemini-2.5-pro-preview-05-06"),
 
             #[cfg(feature = "beta")]
             #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
@@ -337,6 +344,12 @@ pub mod request {
         pub category: HarmCategory,
         pub threshold: HarmBlockThreshold,
     }
+
+    #[cfg(feature = "gemini_2_5")]
+    #[derive(Debug, Clone, Deserialize, Serialize)]
+    pub struct ThinkingConfig {
+        pub thinking_budget: usize,
+    }
     #[derive(Debug, Clone, Deserialize, Serialize)]
     #[serde(rename_all = "camelCase")]
     pub struct GenerationConfig {
@@ -346,6 +359,8 @@ pub mod request {
         pub candidate_count: Option<i32>,
         pub max_output_tokens: Option<i32>,
         pub stop_sequences: Option<Vec<String>>,
+        #[cfg(feature = "gemini_2_5")]
+        pub thinking_config: Option<ThinkingConfig>,
 
         #[cfg(feature = "beta")]
         #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
@@ -353,7 +368,7 @@ pub mod request {
 
         #[cfg(feature = "beta")]
         #[cfg_attr(docsrs, doc(cfg(feature = "beta")))]
-        pub response_schema: Option<serde_json::Value>,
+        pub response_schema: Option<serde_json::Value>
     }
 
     #[cfg(feature = "beta")]

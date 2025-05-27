@@ -11,6 +11,7 @@ keywords = ["google", "generative", "ai", "gemini", "client"]
 
 [features]
 beta = []
+gemini_2_5 = []
 
 [dependencies]
 bytecount = "0.6.7"
